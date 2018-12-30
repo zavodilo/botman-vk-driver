@@ -160,8 +160,9 @@ class VkDriver extends HttpDriver
     public function sendRequest($endpoint, array $parameters, IncomingMessage $matchingMessage)
     {
         $parameters['access_token'] = $this->config->get('access_token');
-        $parameters['v'] = $this->config->get('api_version');
-        $parameters['lang'] = $this->config->get('lang');
+        $parameters['v'] = $this->config->get('api_version', '5.92');
+        $parameters['lang'] = $this->config->get('lang', 'ru');
+        $parameters['random_id'] = mt_rand(1, 99999999);
         return $this->http->post(self::API_URL . $endpoint, [], $parameters);
     }
 }
